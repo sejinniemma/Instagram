@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { redirect } from 'next/dist/server/api-utils';
 
 const authOptions = {
   providers: [
@@ -8,6 +9,9 @@ const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
   ],
+  pages: {
+    signIn: '/auth/signin',
+  },
 };
 
 const handler = NextAuth(authOptions);

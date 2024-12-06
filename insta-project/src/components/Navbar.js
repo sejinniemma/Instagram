@@ -8,6 +8,7 @@ import HomeFillIcon from './ui/icons/HomeFillcon';
 import SearchIcon from './ui/icons/SearchIcon';
 import SearchFillIcon from './ui/icons/SearchFillIcon';
 import NewIcon from './ui/icons/NewIcon';
+import Profile from './ui/Profile';
 import NewFillIcon from './ui/icons/NewFillIcon';
 import ColorBtn from './ui/ColorBtn';
 import { useSession, signIn, signOut } from 'next-auth/react';
@@ -34,7 +35,7 @@ export default function Navbar() {
             );
           })}
         </ul>
-
+        {session && <Profile session={session} />}
         {session ? (
           <ColorBtn text='Sign out' onClick={() => signOut()} />
         ) : (

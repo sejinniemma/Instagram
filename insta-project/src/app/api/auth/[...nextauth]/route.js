@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { redirect } from 'next/dist/server/api-utils';
 
 const authOptions = {
   providers: [
@@ -11,6 +10,12 @@ const authOptions = {
   ],
   pages: {
     signIn: '/auth/signin',
+  },
+  callbacks: {
+    session({ session }) {
+      console.log(`session =>`, { session });
+      return { ...session.user, username: session.user.email.split('@')[0] }; // The return type will match the one returned in `useSession()`
+    },
   },
 };
 

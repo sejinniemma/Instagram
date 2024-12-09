@@ -35,7 +35,7 @@ export default function Navbar() {
             );
           })}
         </ul>
-        {session && <Profile session={session} />}
+        {session && <Profile session={session} size='small' highlight />}
         {session ? (
           <ColorBtn text='Sign out' onClick={() => signOut()} />
         ) : (

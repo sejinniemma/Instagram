@@ -13,13 +13,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en' className={openSans.className}>
-      <body className='w-full max-w-screen-xl overflow-auto mx-auto no-scrollbar'>
+      <body className='w-full max-w-screen-xl overflow-auto mx-auto no-scrollbar bg-neutral-50'>
         <AuthContext>
           <header className='sticky top-0 bg-white z-10 border-b'>
             <Navbar />
           </header>
 
-          <main className='flex w-full justify-center bg-neutral-50 min-h-full'>
+          <main className='flex w-full justify-center  min-h-full'>
             <SWRConfigContext> {children} </SWRConfigContext>
           </main>
         </AuthContext>

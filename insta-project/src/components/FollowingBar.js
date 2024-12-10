@@ -14,7 +14,7 @@ export default function FollowingBar() {
     ...data?.following,
   ];
   return (
-    <section className='overflow-auto min-h-[90px] shadow-sm shadow-neutral-300 mb- rounded-lg w-full flex justify-center items-center p-4'>
+    <section className='no-scrollbar overflow-auto min-h-[90px] shadow-sm shadow-neutral-300 mb- rounded-lg w-full flex justify-center items-center p-4'>
       {loading ? (
         <PropagateLoader size={8} color='red' />
       ) : (

@@ -21,7 +21,8 @@
     "react-spinners": "^0.15.0",
     "sanity": "^3.65.1",
     "styled-components": "^6.1.13",
-    "swr": "^2.2.5"
+    "swr": "^2.2.5",
+    "timeago.js": "^4.0.2"
   },
   "devDependencies": {
     "eslint": "^8",

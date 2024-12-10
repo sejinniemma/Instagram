@@ -14,13 +14,13 @@ export default async function HomePage() {
     redirect('/auth/signin');
   }
   return (
-    <section className='flex flex-col md:flex-row   w-full max-w-[850px] p-4'>
-      <div className='w-full basis-3/4 flex flex-col'>
+    <section className='flex flex-col md:flex-row justify-between w-full max-w-[850px] p-4'>
+      <div className='w-full basis-3/4 flex flex-col min-w-0'>
         <FollowingBar />
         <PostList />
       </div>
 
-      <div className='basis-1/4'>
+      <div className='basis-1/4 ml-8'>
         <Sidebar session={session} />
       </div>
     </section>

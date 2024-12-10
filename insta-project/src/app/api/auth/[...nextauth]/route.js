@@ -20,7 +20,6 @@ const authOptions = {
       return true;
     },
     async session({ session }) {
-      console.log(`session =>`, { session });
       return { ...session.user, username: session.user.email.split('@')[0] }; // The return type will match the one returned in `useSession()`
     },
   },

@@ -6,7 +6,6 @@ export default function Profile({
   highlight = false,
   size = 'normal',
 }) {
-  console.log(`image =>`, { image });
   return (
     <Link href={`/user/${username}`}>
       <div className={getContainerStyle(size, highlight)}>

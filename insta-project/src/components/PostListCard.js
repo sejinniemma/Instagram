@@ -3,7 +3,7 @@ import Image from 'next/image';
 import CommentForm from '../components/CommentForm';
 import ActionBar from '../components/ActionBar';
 
-export default function PostListCard({ post, priority = false }) {
+export default function PostListCard({ onClick, post, priority = false }) {
   const { userImage, username, image, createdAt, likes, text } = post;
 
   return (
@@ -17,7 +17,8 @@ export default function PostListCard({ post, priority = false }) {
         <span className='text-gray-900 font-bold ml-2'>{username}</span>
       </div>
       <Image
-        className='w-full object-cover aspect-square'
+        onClick={onClick}
+        className='w-full object-cover aspect-square cursor-pointer'
         src={image}
         alt={`photo by ${username}`}
         width={500}

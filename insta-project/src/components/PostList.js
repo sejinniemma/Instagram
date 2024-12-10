@@ -1,6 +1,6 @@
 'use client';
 
-import { GridLoader } from 'react-spinners';
+import GridSpinner from '../components/ui/GridSpinner';
 import useSWR from 'swr';
 import PostListCard from '../components/PostListCard';
 export default function PostList() {
@@ -10,15 +10,15 @@ export default function PostList() {
     <section>
       {loading && (
         <div className='text-center mt-32'>
-          <GridLoader color='red' />
+          <GridSpinner color='red' />
         </div>
       )}
 
       {posts && (
         <ul>
-          {posts.map((post) => (
-            <li key={post.id} className='mb-4'>
-              <PostListCard post={post} />
+          {posts.map((post, index) => (
+            <li key={index} className='mb-4'>
+              <PostListCard post={post} priority={index < 2 ? true : false} />
             </li>
           ))}
         </ul>

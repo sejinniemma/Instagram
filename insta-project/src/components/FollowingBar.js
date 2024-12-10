@@ -24,8 +24,8 @@ export default function FollowingBar() {
       {users && users.length > 0 && (
         <ul className='flex w-full gap-2'>
           {/* <ScrollableBar> */}
-          {users.map((user) => (
-            <li className='flex flex-col items-center w-20' key={user.username}>
+          {users.map((user, index) => (
+            <li className='flex flex-col items-center w-20' key={index}>
               <Profile session={user} highlight />
               <p className='w-full text-sm text-center text-ellipsis overflow-hidden'>
                 {user.username}

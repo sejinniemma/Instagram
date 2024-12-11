@@ -3,15 +3,18 @@ import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import UserInfoCard from '../components/UserInfoCard';
 import { GridLoader } from 'react-spinners';
+import useDebounce from '../hooks/Debounce';
+
 export default function UserSearch() {
   const [users, setUsers] = useState([]);
   //   const [selectedUser, setSelectedUser] = useState(); // 선택된 User
   const [filterdUser, setFilterdUser] = useState();
+  const debounceKeword = useDebounce(filterdUser);
   const {
     data,
     isLoading: loading,
     error,
-  } = useSWR(`/api/search?keyword=${filterdUser}`);
+  } = useSWR(`/api/search?keyword=${debounceKeword}`);
 
   useEffect(() => {
     let users;
@@ -50,6 +53,9 @@ export default function UserSearch() {
         <div className='ml-80 mt-40'>
           <GridLoader size={20} color='red' />
         </div>
+      )}
+      {!loading && !error && users?.length === 0 && (
+        <p className='text-gray-400 text-md ml-80 mt-40'>No User founded</p>
       )}
       <ul className='flex flex-col gap-5 w-full p-10'>
         {users &&

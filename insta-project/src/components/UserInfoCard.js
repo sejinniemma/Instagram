@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 export default function UserInfoCard({ user }) {
   const { username, name, image, followers, following } = user;
-  console.log(`users =>`, { user });
+
   return (
     <Link href={`/user/${username}`}>
-      <li className='flex border-gray-200 border-2 rounded-md w-full p-5'>
+      <li className='flex border-gray-200 border-2 rounded-md w-full p-5 pl-3 transition-transform  hover:ease-in-out duration-300 hover:scale-105'>
         <Profile session={{ image, username }} size='large' />
         <div className='flex flex-col items-start ml-2 text-md'>
           <p className='font-bold text-lg'>{username}</p>

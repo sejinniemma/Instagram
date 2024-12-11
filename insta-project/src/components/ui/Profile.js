@@ -11,7 +11,7 @@ export default function Profile({
       <div className={getContainerStyle(size, highlight)}>
         {/*  eslint-disable-next-line @next/next/no-img-element */}
         <img
-          className={`rounded-full bg-white  ${getImageStyle(size)}`}
+          className={`rounded-full bg-white object-cover ${getImageStyle(size)}`}
           alt='profile'
           src={image}
         />

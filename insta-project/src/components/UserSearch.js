@@ -1,32 +1,53 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import UserInfoCard from '../components/UserInfoCard';
 import { GridLoader } from 'react-spinners';
 export default function UserSearch() {
-  const [selectedUser, setSelectedUser] = useState(); // 선택된 User
-  const [filterdUser, setFilterdUser] = useState(); // input에 입력된 text
+  const [users, setUsers] = useState([]);
+  //   const [selectedUser, setSelectedUser] = useState(); // 선택된 User
+  const [filterdUser, setFilterdUser] = useState();
   const {
-    data: users,
+    data,
     isLoading: loading,
     error,
-  } = useSWR(`/api/search?keyword=${selectedUser}`);
-  console.log(`users =>`, { users });
+  } = useSWR(`/api/search?keyword=${filterdUser}`);
+
+  useEffect(() => {
+    let users;
+    if (data && data.length > 0) {
+      if (filterdUser) {
+        users = data.filter(
+          (user) => user.username === filterdUser || user.name === filterdUser
+        );
+        setUsers(users);
+      } else {
+        setUsers(data);
+      }
+    } else {
+      setUsers(data);
+    }
+  }, [data, filterdUser]);
+  //   console.log(`filterdUser =>`, { filterdUser });
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className='w-full p-5'>
       {/* 검색창 */}
-      <input
-        onChange={(e) => {
-          setFilterdUser(e.target.value);
-        }}
-        className='w-full border-none outline-none p-3'
-        type='text'
-        placeholder='Search for a user or username...'
-      />
+
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={(e) => setFilterdUser(e.target.value)}
+          className='w-full  outline-gray-400 p-3'
+          type='text'
+          placeholder='Search for a user or username...'
+        />
+      </form>
 
       {/* User List */}
       {loading && (
-        <div className='mt-35 ml-35 w-full '>
+        <div className='ml-80 mt-40'>
           <GridLoader size={20} color='red' />
         </div>
       )}

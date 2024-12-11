@@ -17,7 +17,7 @@ export default function Navbar() {
   const path = usePathname();
   const { data: session } = useSession();
   return (
-    <div className='w-full flex flex-row justify-between items-center px-6'>
+    <div className='w-full flex flex-row justify-between items-center px-6 '>
       <Link href='/'>
         <h1 className='text-3xl font-bold'>Instagram</h1>
       </Link>

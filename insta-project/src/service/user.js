@@ -25,3 +25,14 @@ export async function getUserByUsername(username) {
     }`
   );
 }
+
+export async function getAllUsers() {
+  return client.fetch(
+    `*[_type == 'user']{
+  ...,
+  "id":_id, 
+  "following": count(following),
+  "followers": count(followers),
+} `
+  );
+}

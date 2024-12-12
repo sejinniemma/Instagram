@@ -26,6 +26,24 @@ export async function getUserByUsername(username) {
   );
 }
 
+export async function getUserForProfile(username) {
+  return client
+    .fetch(
+      `*[_type == "user" && username == "${username}"][0]{
+    ...,
+    "id":_id,
+     "following": count(following),
+    "followers": count(followers),
+    "posts": count(*[_type == "post" && author->username == "${username}"])
+    }`
+    )
+    .then((user) => ({
+      ...user,
+      following: user.following ?? 0,
+      followers: user.followers ?? 0,
+    }));
+}
+
 export async function getAllUsers(user) {
   const query = user
     ? `&& (name match "${user}") || (username match "${user}")`

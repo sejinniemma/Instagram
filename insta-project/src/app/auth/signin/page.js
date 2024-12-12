@@ -1,9 +1,14 @@
 import { getServerSession } from 'next-auth';
 import React from 'react';
-import { authOptions } from '../../api/auth/[...nextauth]/route';
+import { authOptions } from '../../../app/lib/auth';
 import { redirect } from 'next/navigation';
 import { getProviders } from 'next-auth/react';
 import Signin from '../../../components/ui/Singin';
+
+export const metadata = {
+  title: 'Signin',
+  description: 'Signup or Login to Instantgram',
+};
 
 export default async function SignPage({ searchParams: { callbackUrl } }) {
   const session = await getServerSession(authOptions);

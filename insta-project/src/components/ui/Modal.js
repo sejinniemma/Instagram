@@ -67,23 +67,24 @@ export default function ModalContent({ onClose, post }) {
             )}
             {comments &&
               comments.length > 0 &&
-              comments.map(({ comment, image, username: commentUserName }) => {
-                console.log(`comment =>`, comment);
-                return (
-                  <div className='flex items-center mt-2'>
-                    <Profile
-                      session={{
-                        image,
-                        username,
-                      }}
-                      size='small'
-                      highlight={commentUserName === username}
-                    />
-                    <p className='font-bold mx-2'>{commentUserName}</p>
-                    <p>{comment}</p>
-                  </div>
-                );
-              })}
+              comments.map(
+                ({ comment, image, username: commentUserName }, index) => {
+                  return (
+                    <div key={index} className='flex items-center mt-2'>
+                      <Profile
+                        session={{
+                          image,
+                          username,
+                        }}
+                        size='small'
+                        highlight={commentUserName === username}
+                      />
+                      <p className='font-bold mx-2'>{commentUserName}</p>
+                      <p>{comment}</p>
+                    </div>
+                  );
+                }
+              )}
           </div>
 
           {/* Footer */}

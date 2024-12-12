@@ -22,7 +22,7 @@ export default async function UserPage({ params: { username } }) {
   );
 }
 
-export async function generatedMetadata({ params: { username } }) {
+export async function generateMetadata({ params: { username } }) {
   const user = await getUser(username);
   return {
     title: `${user?.name} (@${user?.username})﹒Instantgram Photos`,

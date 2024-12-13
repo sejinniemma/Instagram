@@ -90,11 +90,7 @@ export default function ModalContent({ onClose, post }) {
           {/* Footer */}
           <div>
             {' '}
-            <ActionBar
-              likes={likes}
-              username={username}
-              createdAt={createdAt}
-            />
+            <ActionBar post={post} />
             <CommentForm />
           </div>
         </div>

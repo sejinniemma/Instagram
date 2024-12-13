@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import PostsIcon from '../components/ui/icons/PostIcon';
 import HeartIcon from '../components/ui/icons/HeartIcon';
-import BookMarkIcon from '../components/ui/icons/BookMarkIcon';
+import BookmarkIcon from '../components/ui/icons/BookmarkIcon';
 import PostGrid from '../components/PostGrid';
 
 const tabs = [
   { type: 'posts', icon: <PostsIcon /> },
-  { type: 'saved', icon: <BookMarkIcon className='w-3 h-3' /> },
+  { type: 'saved', icon: <BookmarkIcon className='w-3 h-3' /> },
   { type: 'likes', icon: <HeartIcon className='w-3 h-3' /> },
 ];
 

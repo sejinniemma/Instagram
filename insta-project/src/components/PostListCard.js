@@ -4,7 +4,7 @@ import CommentForm from '../components/CommentForm';
 import ActionBar from '../components/ActionBar';
 
 export default function PostListCard({ onClick, post, priority = false }) {
-  const { userImage, username, image, createdAt, likes, text } = post;
+  const { userImage, username, image, createdAt, likes, text, id } = post;
 
   return (
     <article className='rounded-md shadow-md border border-gray-200'>
@@ -25,12 +25,7 @@ export default function PostListCard({ onClick, post, priority = false }) {
         height={500}
         priority={priority}
       />
-      <ActionBar
-        likes={likes}
-        username={username}
-        text={text}
-        createdAt={createdAt}
-      />
+      <ActionBar post={post} />
       <CommentForm />
     </article>
   );

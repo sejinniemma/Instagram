@@ -6,17 +6,25 @@ import ActionBar from '../ActionBar';
 import CommentForm from '../CommentForm';
 import useSWR from 'swr';
 import { CircleLoader } from 'react-spinners';
+import useFullPost from '../../hooks/post';
+import useMe from '../../hooks/me';
 
 export default function ModalContent({ onClose, post }) {
-  const { id, username, userImage, image, text, likes, createdAt } = post;
-  const { data, isLoading: loading, error } = useSWR(`/api/posts/${id}`);
+  const { id, username, userImage, image } = post;
+  const { post: data, isLoading: loading, postComment } = useFullPost(id); // 하나의 포스트에 대한 코멘트들만 가져오는 것이므로.
+  const { user } = useMe();
 
   const comments = data?.comments;
-  console.log(`likes =>`, { likes });
+
   // 서버상에서 렌더링되지 않도록 방지.
   if (typeof window === 'undefined') {
     return null;
   }
+
+  const handlePostComment = (comment) => {
+    user &&
+      postComment({ comment, username: user.username, image: user.image });
+  };
   return (
     <div
       className='
@@ -91,7 +99,7 @@ export default function ModalContent({ onClose, post }) {
           <div>
             {' '}
             <ActionBar post={post} />
-            <CommentForm />
+            <CommentForm onPostComment={handlePostComment} />
           </div>
         </div>
 

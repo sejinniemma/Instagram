@@ -100,3 +100,13 @@ export async function dislikePost(postId, userId) {
     .unset([`likes[_ref=="${userId}"]`])
     .commit();
 }
+
+export async function addComment(postId, userId, comment) {
+  return client
+    .patch(postId) //
+    .setIfMissing({ comments: [] })
+    .append('comments', [
+      { comment, author: { _ref: userId, _type: 'reference' } },
+    ])
+    .commit({ autoGenerateArrayKeys: true });
+}

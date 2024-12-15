@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-import useSWR from 'swr';
 import Button from '../ui/Button';
+import useMe from '../../hooks/me';
 
 export default function FollowBtn({ user }) {
   const { username } = user;
-  const { data: loggedInUser, isLoading: loading, error } = useSWR('/api/me');
+  const { user: loggedInUser, isLoading: loading, error } = useMe();
 
   const showButton = loggedInUser && loggedInUser.username === username;
   const following =

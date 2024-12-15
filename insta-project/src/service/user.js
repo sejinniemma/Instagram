@@ -57,3 +57,23 @@ export async function getAllUsers(user) {
   `
   );
 }
+
+export async function addBookMark(userId, postId) {
+  return client
+    .patch(userId) //
+    .setIfMissing({ bookmarks: [] })
+    .append('bookmarks', [
+      {
+        _ref: postId,
+        _type: 'reference',
+      },
+    ])
+    .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function removeBookMark(userId, postId) {
+  return client
+    .patch(userId)
+    .unset([`bookmarks[_ref=="${postId}"]`])
+    .commit();
+}

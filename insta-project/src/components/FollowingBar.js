@@ -1,18 +1,14 @@
 'use client';
 
 import React from 'react';
-import useSWR from 'swr';
 import Profile from './ui/Profile';
 import { PropagateLoader } from 'react-spinners';
-import ScrollableBar from '../components/ui/ScrollableBar';
+import useMe from '../hooks/me';
 
 export default function FollowingBar() {
-  const { data, isLoading: loading, error } = useSWR('/api/me');
-  const users = data && [
-    ...data?.following,
-    ...data?.following,
-    ...data?.following,
-  ];
+  const { user, isLoading: loading, error } = useMe();
+  const users = user?.following;
+
   return (
     <section className='no-scrollbar overflow-auto min-h-[90px] shadow-sm shadow-neutral-300 mb- rounded-lg w-full flex justify-center items-center p-4'>
       {loading ? (

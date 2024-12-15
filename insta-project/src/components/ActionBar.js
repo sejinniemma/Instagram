@@ -9,23 +9,22 @@ import { useState } from 'react';
 import ToggleButton from '../components/ui/ToggleButton';
 import { useSession } from 'next-auth/react';
 import usePosts from '../hooks/posts';
+import useMe from '../hooks/me';
 
 export default function ActionBar({ post }) {
   const { id, likes, username, text, createdAt } = post;
-  const { data: session } = useSession();
-
-  // const userId = session.id;
-  const liked = session && likes && likes.includes(session.username); // 최신으로 받아온 Post에 의존
-  const [bookMarked, setBookMarked] = useState(false);
+  const { user, setBookMark } = useMe();
   const { setLike } = usePosts();
+  const liked = user ? likes && likes.includes(user.username) : false; // 최신으로 받아온 Post에 의존
+  const bookmarked = user?.bookmarks.includes(id) ?? false;
 
   const handleLike = (like) => {
-    if (session) {
-      console.log(`post gg =>`, { post });
-      console.log(`like gg =>`, { like });
-      console.log(`session gg=>`, session.username);
-      setLike(post, session.username, like);
-    }
+    user && setLike(post, user.username, like);
+  };
+
+  const handleBookmark = (bookmark) => {
+    console.log(`bookmark =>`, { bookmark });
+    user && setBookMark(id, bookmark);
   };
 
   return (
@@ -38,8 +37,8 @@ export default function ActionBar({ post }) {
           offIcon={<HeartIcon />}
         />
         <ToggleButton
-          toggled={bookMarked}
-          onToggle={setBookMarked}
+          toggled={bookmarked}
+          onToggle={handleBookmark}
           onIcon={<BookMarkFillIcon />}
           offIcon={<BookmarkIcon />}
         />

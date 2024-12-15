@@ -11,11 +11,6 @@ export default function PostList() {
   const [selectedPost, setSelectedPost] = useState();
   const [showModal, setShowModal] = useState(false);
 
-  // useEffect(()=>{
-  //   selectedPost()
-  // },[posts])
-
-  console.log(`1selectedPost =>`, { selectedPost });
   return (
     <section>
       {loading && (

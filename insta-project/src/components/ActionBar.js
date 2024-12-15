@@ -8,22 +8,24 @@ import { parseDate } from '../util/date';
 import { useState } from 'react';
 import ToggleButton from '../components/ui/ToggleButton';
 import { useSession } from 'next-auth/react';
-import { useSWRConfig } from 'swr';
+import usePosts from '../hooks/posts';
 
 export default function ActionBar({ post }) {
   const { id, likes, username, text, createdAt } = post;
   const { data: session } = useSession();
-  const { mutate } = useSWRConfig();
 
   // const userId = session.id;
   const liked = session && likes && likes.includes(session.username); // 최신으로 받아온 Post에 의존
   const [bookMarked, setBookMarked] = useState(false);
+  const { setLike } = usePosts();
 
   const handleLike = (like) => {
-    fetch('api/likes', {
-      method: 'PUT',
-      body: JSON.stringify({ id, like }),
-    }).then(() => mutate('/api/posts'));
+    if (session) {
+      console.log(`post gg =>`, { post });
+      console.log(`like gg =>`, { like });
+      console.log(`session gg=>`, session.username);
+      setLike(post, session.username, like);
+    }
   };
 
   return (

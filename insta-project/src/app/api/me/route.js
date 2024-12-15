@@ -10,7 +10,6 @@ export async function GET() {
   const session = await getServerSession(authOptions);
   const userEmail = session.email;
 
-  console.log(`session =>`, session.username);
   if (!userEmail) {
     return new Response('Authentication error', { status: 401 });
   }

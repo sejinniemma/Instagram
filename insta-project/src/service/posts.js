@@ -13,7 +13,6 @@ const simplePostProjection = `
 `;
 
 export async function getFollowingPostsOf(username) {
-  console.log(`username =>`, { username });
   // 1. username을 가지고 following을 받아와서 그 following의 username, Image를 가져옴
   // 2. 그 username으로 post의 author에 해당하는 정보를 가져옴
   return client

@@ -1,15 +1,20 @@
 'use client';
 import { createPortal } from 'react-dom';
 import GridSpinner from '../components/ui/GridSpinner';
-import useSWR from 'swr';
 import PostListCard from '../components/PostListCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ModalContent from '../components/ui/Modal';
+import usePosts from '../hooks/posts';
 
 export default function PostList() {
-  const { data: posts, isLoading: loading, error } = useSWR('/api/posts');
-  const [selectedPost, setSelectedPost] = useState({});
+  const { posts, isLoading: loading } = usePosts();
+  const [selectedPost, setSelectedPost] = useState();
   const [showModal, setShowModal] = useState(false);
+
+  // useEffect(()=>{
+  //   selectedPost()
+  // },[posts])
+
   console.log(`1selectedPost =>`, { selectedPost });
   return (
     <section>
@@ -41,7 +46,7 @@ export default function PostList() {
           selectedPost &&
           createPortal(
             <ModalContent
-              post={selectedPost}
+              post={posts.filter((post) => post.id === selectedPost.id)[0]}
               onClose={() => setShowModal(false)}
             />,
             document.body

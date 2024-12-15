@@ -12,7 +12,7 @@ export default function ModalContent({ onClose, post }) {
   const { data, isLoading: loading, error } = useSWR(`/api/posts/${id}`);
 
   const comments = data?.comments;
-  console.log(`comments =>`, { comments });
+  console.log(`likes =>`, { likes });
   // 서버상에서 렌더링되지 않도록 방지.
   if (typeof window === 'undefined') {
     return null;

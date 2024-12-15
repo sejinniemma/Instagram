@@ -5,7 +5,7 @@ import ActionBar from '../components/ActionBar';
 
 export default function PostListCard({ onClick, post, priority = false }) {
   const { userImage, username, image, createdAt, likes, text, id } = post;
-
+  console.log(`likes =>`, { likes });
   return (
     <article className='rounded-md shadow-md border border-gray-200'>
       <div className='flex items-center p-2'>

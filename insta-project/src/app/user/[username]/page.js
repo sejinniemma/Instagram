@@ -7,7 +7,8 @@ import { cache } from 'react';
 
 const getUser = cache(async (username) => getUserForProfile(username));
 
-export default async function UserPage({ params: { username } }) {
+export default async function UserPage({ params }) {
+  const { username } = await params; // await로 params 처리
   const user = await getUser(username);
 
   if (!user) {
@@ -22,8 +23,10 @@ export default async function UserPage({ params: { username } }) {
   );
 }
 
-export async function generateMetadata({ params: { username } }) {
+export async function generateMetadata({ params }) {
+  const { username } = await params; // await로 params 처리
   const user = await getUser(username);
+
   return {
     title: `${user?.name} (@${user?.username})﹒Instantgram Photos`,
     description: `${user?.name}'s all Instantgram posts`,

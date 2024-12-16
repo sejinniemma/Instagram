@@ -77,3 +77,36 @@ export async function removeBookMark(userId, postId) {
     .unset([`bookmarks[_ref=="${postId}"]`])
     .commit();
 }
+
+// 1. 내가 팔로우 하면 상대의 follower에 그리고 내 following에 둘다 업데이트가 되어야 한다.
+export async function follow(myId, targetId) {
+  return client
+    .transaction() //
+    .patch(myId, (user) =>
+      user
+        .setIfMissing({ following: [] }) //
+        .append('following', [
+          {
+            _ref: targetId,
+            _type: 'reference',
+          },
+        ])
+    )
+    .patch(targetId, (user) =>
+      user.setIfMissing({ followers: [] }).append('followers', [
+        {
+          _ref: myId,
+          _type: 'reference',
+        },
+      ])
+    )
+    .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function unfollow(myId, targetId) {
+  return client
+    .transaction() //
+    .patch(myId, (user) => user.unset([`following[_ref=="${targetId}"]`]))
+    .patch(targetId, (user) => user.unset([`followers[_ref=="${myId}"]`]))
+    .commit({ autoGenerateArrayKeys: true });
+}

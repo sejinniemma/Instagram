@@ -13,12 +13,11 @@ export async function PUT(req) {
   }
 
   const { id, like } = await req.json();
-  console.log(`id =>`, { id });
-  console.log(`like =>`, { like });
+
   if (!id || like === undefined) {
     return new Response('Bad Requesst', { status: 400 });
   }
-  console.log(`sessionid =>`, session.id);
+
   const request = like ? likePost : dislikePost;
 
   return request(id, session.id) // postId, userId

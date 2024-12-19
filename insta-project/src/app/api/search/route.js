@@ -6,6 +6,5 @@ export const dynamic = 'force-dynamic'; // 그냥 GET()으로 아무것도 인�
 
 export async function GET(request) {
   const user = request.nextUrl.searchParams;
-  console.log(`user =>`, { user });
   return getAllUsers(user.keyword).then((data) => NextResponse.json(data));
 }
